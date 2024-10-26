@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // 创建一个初始的占位符显示在页面上
             artworkElement.innerHTML = `
-                <img src="${tempImageUrl}" alt="${artwork.title}">
+                <img src="${tempImageUrl}" alt="${artwork.title}" id="artwork-image">
                 <h2>${artwork.title}</h2>
                 <p>Loading artist info...</p>
             `;
@@ -78,9 +78,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 // 获取艺术家信息（若无显示 Unknown Artist）
                 const artistName = artwork.artist_display ? artwork.artist_display : 'Unknown Artist';
 
-                // 更新 artworkElement 的内容
+                // 更新 artworkElement 的内容，若大图加载失败则回退到缩略图
                 artworkElement.innerHTML = `
-                    <img src="${imageUrl}" alt="${artwork.title}">
+                    <img src="${imageUrl}" alt="${artwork.title}" onerror="this.onerror=null; this.src='${artwork.thumbnail && artwork.thumbnail.lqip ? artwork.thumbnail.lqip : 'https://via.placeholder.com/843x843.png?text=Image+Not+Available'}';">
                     <h2>${artwork.title}</h2>
                     <p>${artistName}</p>
                 `;
@@ -91,3 +91,4 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     }
 });
+
