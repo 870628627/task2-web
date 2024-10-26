@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
+                console.log("Fetched data:", data); // 调试输出
                 displayResults(data.data);
             })
             .catch(error => {
@@ -33,6 +34,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         artworks.forEach(artwork => {
+            console.log("Artwork Title:", artwork.title); // 输出标题
+            console.log("Image ID:", artwork.image_id); // 输出图像ID
+
             const artworkElement = document.createElement('div');
             artworkElement.classList.add('artwork');
 
@@ -44,6 +48,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Use a placeholder image if image_id is not available
                 imageUrl = 'https://via.placeholder.com/843x843.png?text=No+Image+Available';
             }
+
+            console.log("Image URL:", imageUrl); // 输出图像URL
 
             artworkElement.innerHTML = `
                 <img src="${imageUrl}" alt="${artwork.title}">
