@@ -39,13 +39,10 @@ document.addEventListener("DOMContentLoaded", function() {
             const artworkElement = document.createElement('div');
             artworkElement.classList.add('artwork');
 
-            // 使用更大尺寸的图像请求（1200px 宽度）
+            // 仅使用大图（1200px 宽度），不使用缩略图
             let imageUrl;
             if (artwork.image_id) {
                 imageUrl = `https://www.artic.edu/iiif/2/${artwork.image_id}/full/1200,/0/default.jpg`;
-            } else if (artwork.thumbnail && artwork.thumbnail.lqip) {
-                // 使用缩略图作为备选图像
-                imageUrl = artwork.thumbnail.lqip;
             } else {
                 // 使用较大尺寸的占位符图像
                 imageUrl = 'https://via.placeholder.com/1200x1200.png?text=No+Image+Available';
