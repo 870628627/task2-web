@@ -50,6 +50,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
             console.log("Image URL:", imageUrl); // 输出图像 URL，便于调试
 
+            // 目前使用 artist_title 字段，但在控制台检查 artist 信息所在的实际字段
+            const artistName = artwork.artist_title ? artwork.artist_title : 'Unknown Artist';
+            console.log("Artist Name (pre-check):", artistName); // 输出当前使用的 artist_title 值
+
             // 检查 artist_title 字段，如果不存在则设置为 'Unknown Artist'
             const artistName = artwork.artist_title ? artwork.artist_title : 'Unknown Artist';
             console.log("Artist Name:", artistName); // 输出艺术家名称，便于调试
