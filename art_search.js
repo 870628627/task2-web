@@ -34,35 +34,30 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         artworks.forEach(artwork => {
-            console.log("Artwork Data:", artwork); // 输出完整的artwork对象，便于调试
+            console.log("Artwork Data:", artwork); // 输出完整的 artwork 对象，便于调试
 
             const artworkElement = document.createElement('div');
             artworkElement.classList.add('artwork');
 
-            // Check if image_id or thumbnail exists and create the correct image URL
+            // 仅使用大图（1000px 宽度），不使用缩略图
             let imageUrl;
             if (artwork.image_id) {
-                imageUrl = `https://www.artic.edu/iiif/2/${artwork.image_id}/full/1000,/0/default.jpg`; // 请求1000px宽度的图像
-            } else if (artwork.thumbnail && artwork.thumbnail.lqip) {
-                // Use the low-quality image placeholder (lqip) if image_id is not available
-                imageUrl = artwork.thumbnail.lqip;
+                imageUrl = `https://www.artic.edu/iiif/2/${artwork.image_id}/full/1000,/0/default.jpg`;
             } else {
-                // Use a larger placeholder image if neither image_id nor thumbnail is available
+                // 使用较大尺寸的占位符图像
                 imageUrl = 'https://via.placeholder.com/1000x1000.png?text=No+Image+Available';
             }
 
-            // Check if image is too small (skip if it is too small)
-            if (artwork.thumbnail && artwork.thumbnail.width < 200 && artwork.thumbnail.height < 200) {
-                console.log("Skipping small image for artwork:", artwork.title);
-                return; // Skip adding this artwork if the image is too small
-            }
+            console.log("Image URL:", imageUrl); // 输出图像 URL，便于调试
 
-            console.log("Image URL:", imageUrl); // 输出图像URL，便于调试
+            // 检查 artist_title 字段，如果不存在则设置为 'Unknown Artist'
+            const artistName = artwork.artist_title ? artwork.artist_title : 'Unknown Artist';
+            console.log("Artist Name:", artistName); // 输出艺术家名称，便于调试
 
             artworkElement.innerHTML = `
                 <img src="${imageUrl}" alt="${artwork.title}">
                 <h2>${artwork.title}</h2>
-                <p>${artwork.artist_title ? artwork.artist_title : 'Unknown Artist'}</p>
+                <p>${artistName}</p>
             `;
 
             resultsDiv.appendChild(artworkElement);
