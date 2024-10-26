@@ -39,22 +39,13 @@ document.addEventListener("DOMContentLoaded", function() {
             const artworkElement = document.createElement('div');
             artworkElement.classList.add('artwork');
 
-            // Check if image_id or thumbnail exists and create the correct image URL
+            // 使用 image_id 请求 800px 宽度的正常图像，如果没有 image_id 则使用占位符
             let imageUrl;
             if (artwork.image_id) {
-                imageUrl = `https://www.artic.edu/iiif/2/${artwork.image_id}/full/1000,/0/default.jpg`; // 请求1000px宽度的图像
-            } else if (artwork.thumbnail && artwork.thumbnail.lqip) {
-                // Use the low-quality image placeholder (lqip) if image_id is not available
-                imageUrl = artwork.thumbnail.lqip;
+                imageUrl = `https://www.artic.edu/iiif/2/${artwork.image_id}/full/800,/0/default.jpg`; // 请求800px宽度的图像
             } else {
-                // Use a larger placeholder image if neither image_id nor thumbnail is available
-                imageUrl = 'https://via.placeholder.com/1000x1000.png?text=No+Image+Available';
-            }
-
-            // Check if image is too small (skip if it is too small)
-            if (artwork.thumbnail && artwork.thumbnail.width < 200 && artwork.thumbnail.height < 200) {
-                console.log("Skipping small image for artwork:", artwork.title);
-                return; // Skip adding this artwork if the image is too small
+                // 使用较大尺寸的占位符图像
+                imageUrl = 'https://via.placeholder.com/800x800.png?text=No+Image+Available';
             }
 
             console.log("Image URL:", imageUrl); // 输出图像URL，便于调试
@@ -67,9 +58,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
             resultsDiv.appendChild(artworkElement);
         });
-    }
-});
-
     }
 });
 
