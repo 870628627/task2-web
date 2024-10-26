@@ -36,7 +36,15 @@ document.addEventListener("DOMContentLoaded", function() {
             const artworkElement = document.createElement('div');
             artworkElement.classList.add('artwork');
 
-            const imageUrl = artwork.image_id ? `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg` : 'placeholder.jpg';
+            // Check if image_id exists and create the correct image URL
+            let imageUrl;
+            if (artwork.image_id) {
+                imageUrl = `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`;
+            } else {
+                // Use a placeholder image if image_id is not available
+                imageUrl = 'https://via.placeholder.com/843x843.png?text=No+Image+Available';
+            }
+
             artworkElement.innerHTML = `
                 <img src="${imageUrl}" alt="${artwork.title}">
                 <h2>${artwork.title}</h2>
@@ -47,3 +55,4 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
