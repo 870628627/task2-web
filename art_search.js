@@ -34,22 +34,24 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         artworks.forEach(artwork => {
-            console.log("Artwork Title:", artwork.title); // 输出标题
-            console.log("Image ID:", artwork.image_id); // 输出图像ID
+            console.log("Artwork Data:", artwork); // 输出完整的artwork对象，便于调试
 
             const artworkElement = document.createElement('div');
             artworkElement.classList.add('artwork');
 
-            // Check if image_id exists and create the correct image URL
+            // Check if image_id or thumbnail exists and create the correct image URL
             let imageUrl;
             if (artwork.image_id) {
                 imageUrl = `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`;
+            } else if (artwork.thumbnail && artwork.thumbnail.lqip) {
+                // Use the low-quality image placeholder (lqip) if image_id is not available
+                imageUrl = artwork.thumbnail.lqip;
             } else {
-                // Use a placeholder image if image_id is not available
+                // Use a placeholder image if neither image_id nor thumbnail is available
                 imageUrl = 'https://via.placeholder.com/843x843.png?text=No+Image+Available';
             }
 
-            console.log("Image URL:", imageUrl); // 输出图像URL
+            console.log("Image URL:", imageUrl); // 输出图像URL，便于调试
 
             artworkElement.innerHTML = `
                 <img src="${imageUrl}" alt="${artwork.title}">
@@ -61,4 +63,5 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
 
