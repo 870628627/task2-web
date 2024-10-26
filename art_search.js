@@ -47,8 +47,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Use the low-quality image placeholder (lqip) if image_id is not available
                 imageUrl = artwork.thumbnail.lqip;
             } else {
-                // Use a placeholder image if neither image_id nor thumbnail is available
+                // Use a larger placeholder image if neither image_id nor thumbnail is available
                 imageUrl = 'https://via.placeholder.com/1000x1000.png?text=No+Image+Available';
+            }
+
+            // Check if image is too small (skip if it is too small)
+            if (artwork.thumbnail && artwork.thumbnail.width < 200 && artwork.thumbnail.height < 200) {
+                console.log("Skipping small image for artwork:", artwork.title);
+                return; // Skip adding this artwork if the image is too small
             }
 
             console.log("Image URL:", imageUrl); // 输出图像URL，便于调试
@@ -61,6 +67,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
             resultsDiv.appendChild(artworkElement);
         });
+    }
+});
+
     }
 });
 
