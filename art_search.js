@@ -42,13 +42,13 @@ document.addEventListener("DOMContentLoaded", function() {
             // Check if image_id or thumbnail exists and create the correct image URL
             let imageUrl;
             if (artwork.image_id) {
-                imageUrl = `https://www.artic.edu/iiif/2/${artwork.image_id}/full/1000,/0/default.jpg`; // 请求1000px宽度的图像
+                imageUrl = `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`;
             } else if (artwork.thumbnail && artwork.thumbnail.lqip) {
                 // Use the low-quality image placeholder (lqip) if image_id is not available
                 imageUrl = artwork.thumbnail.lqip;
             } else {
                 // Use a placeholder image if neither image_id nor thumbnail is available
-                imageUrl = 'https://via.placeholder.com/1000x1000.png?text=No+Image+Available';
+                imageUrl = 'https://via.placeholder.com/843x843.png?text=No+Image+Available';
             }
 
             console.log("Image URL:", imageUrl); // 输出图像URL，便于调试
