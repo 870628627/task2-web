@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const searchQueryInput = document.getElementById('searchQuery');
     const resultsDiv = document.getElementById('results');
 
-    // 监听搜索表单的提交事件
     searchForm.addEventListener('submit', function(event) {
         event.preventDefault();
         const query = searchQueryInput.value.trim();
@@ -12,16 +11,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // 发起API请求并获取搜索结果
     function searchArtworks(query) {
         const apiUrl = `https://api.artic.edu/api/v1/artworks/search?q=${encodeURIComponent(query)}&limit=3`;
-        
-        console.log("API URL:", apiUrl);  // 调试输出请求的URL
 
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
-                console.log("Fetched data:", data);  // 输出返回的数据，便于调试
+                console.log("Fetched data:", data); // 调试输出
                 displayResults(data.data);
             })
             .catch(error => {
@@ -30,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     }
 
-    // 展示搜索结果
     function displayResults(artworks) {
         resultsDiv.innerHTML = '';
         if (artworks.length === 0) {
@@ -39,15 +34,24 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         artworks.forEach(artwork => {
-            console.log("Artwork Data:", artwork);  // 输出每个艺术作品的对象，便于调试
+            console.log("Artwork Data:", artwork); // 输出完整的artwork对象，便于调试
 
             const artworkElement = document.createElement('div');
             artworkElement.classList.add('artwork');
 
-            // 如果 image_id 存在，则请求指定尺寸的图像；否则使用占位符
-            const imageUrl = artwork.image_id ? `https://www.artic.edu/iiif/2/${artwork.image_id}/full/800,/0/default.jpg` : 'https://via.placeholder.com/800x800.png?text=No+Image+Available';
-            
-            console.log("Image URL:", imageUrl);  // 输出图像 URL，便于调试
+            // Check if image_id or thumbnail exists and create the correct image URL
+            let imageUrl;
+            if (artwork.image_id) {
+                imageUrl = `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`;
+            } else if (artwork.thumbnail && artwork.thumbnail.lqip) {
+                // Use the low-quality image placeholder (lqip) if image_id is not available
+                imageUrl = artwork.thumbnail.lqip;
+            } else {
+                // Use a placeholder image if neither image_id nor thumbnail is available
+                imageUrl = 'https://via.placeholder.com/843x843.png?text=No+Image+Available';
+            }
+
+            console.log("Image URL:", imageUrl); // 输出图像URL，便于调试
 
             artworkElement.innerHTML = `
                 <img src="${imageUrl}" alt="${artwork.title}">
