@@ -2,20 +2,27 @@ document.addEventListener("DOMContentLoaded", function() {
     const searchForm = document.getElementById('searchForm');
     const searchQueryInput = document.getElementById('searchQuery');
     const resultsDiv = document.getElementById('results');
+    const publicDomainCheckbox = document.getElementById('publicDomainCheckbox'); // 获取复选框
 
     // 监听搜索表单的提交事件
     searchForm.addEventListener('submit', function(event) {
         event.preventDefault(); // 阻止表单的默认提交行为
         const query = searchQueryInput.value.trim(); // 获取并去除输入内容的多余空格
+        const isPublicDomainOnly = publicDomainCheckbox.checked; // 检查复选框状态
         if (query) {
-            searchArtworks(query); // 如果输入非空，调用搜索函数
+            searchArtworks(query, isPublicDomainOnly); // 调用搜索函数，并传入复选框状态
         }
     });
 
     // 定义搜索函数，通过API请求搜索指定关键词的艺术品
-    function searchArtworks(query) {
+    function searchArtworks(query, isPublicDomainOnly) {
         // 构建API请求的URL，查询关键词并限制返回3个结果
-        const apiUrl = `https://api.artic.edu/api/v1/artworks/search?q=${encodeURIComponent(query)}&limit=3`;
+        let apiUrl = `https://api.artic.edu/api/v1/artworks/search?q=${encodeURIComponent(query)}&limit=3`;
+
+        // 如果选中公共领域复选框，添加相应过滤参数
+        if (isPublicDomainOnly) {
+            apiUrl += '&fields=is_public_domain&is_public_domain=true';
+        }
 
         // 发起API请求
         fetch(apiUrl)
