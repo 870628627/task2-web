@@ -11,7 +11,8 @@
         <form id="searchForm">
             <input type="text" id="searchQuery" placeholder="Enter keyword..." autofocus>
             <button type="submit">Search</button>
-            <!-- 将复选框放置在表单内 -->
+            
+            <!-- 将复选框放置在表单内，并为其添加独立的容器以便样式调整 -->
             <div class="checkbox-container">
                 <label>
                     <input type="checkbox" id="publicDomainCheckbox">
@@ -47,7 +48,7 @@
     form {
         display: flex;
         flex-direction: column;
-        align-items: center; /* 居中对齐表单内容 */
+        align-items: center; /* 将表单内容居中 */
         margin-bottom: 20px;
     }
 
@@ -57,7 +58,6 @@
         font-size: 16px;
         border: 1px solid #ddd;
         border-radius: 4px;
-        margin-right: 10px;
         margin-bottom: 10px; /* 添加底部外边距 */
     }
 
@@ -79,8 +79,8 @@
     /* 复选框容器居中 */
     .checkbox-container {
         display: flex;
-        justify-content: center;
-        margin-bottom: 10px;
+        justify-content: center; /* 居中对齐复选框 */
+        margin-top: 10px; /* 添加顶部间距 */
     }
 
     #results {
@@ -103,3 +103,4 @@
     }
 </style>
 </html>
+
