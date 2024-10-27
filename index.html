@@ -9,19 +9,20 @@
     <div class="container">
         <h1>Search for Artworks</h1>
         <form id="searchForm">
-            <!-- 添加 autofocus 属性 -->
             <input type="text" id="searchQuery" placeholder="Enter keyword..." autofocus>
             <button type="submit">Search</button>
+            <!-- 将复选框放置在表单内 -->
+            <div class="checkbox-container">
+                <label>
+                    <input type="checkbox" id="publicDomainCheckbox">
+                    Public Domain Only
+                </label>
+            </div>
         </form>
         <div id="results"></div>
     </div>
     <script src="art_search.js"></script>
 </body>
-    
-<label>
-    <input type="checkbox" id="publicDomainCheckbox">
-    Public Domain Only
-</label>
 
 <style>
     body {
@@ -45,7 +46,8 @@
 
     form {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center; /* 居中对齐表单内容 */
         margin-bottom: 20px;
     }
 
@@ -56,6 +58,7 @@
         border: 1px solid #ddd;
         border-radius: 4px;
         margin-right: 10px;
+        margin-bottom: 10px; /* 添加底部外边距 */
     }
 
     button {
@@ -66,10 +69,18 @@
         background-color: #007bff;
         color: white;
         cursor: pointer;
+        margin-bottom: 10px; /* 添加底部外边距 */
     }
 
     button:hover {
         background-color: #0056b3;
+    }
+
+    /* 复选框容器居中 */
+    .checkbox-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
     }
 
     #results {
