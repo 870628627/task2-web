@@ -9,10 +9,12 @@
     <div class="container">
         <h1>Search for Artworks</h1>
         <form id="searchForm">
-            <input type="text" id="searchQuery" placeholder="Enter keyword..." autofocus>
-            <button type="submit">Search</button>
-            
-            <!-- 将复选框放置在表单内，并为其添加独立的容器以便样式调整 -->
+            <div class="search-bar">
+                <input type="text" id="searchQuery" placeholder="Enter keyword..." autofocus>
+                <button type="submit">Search</button>
+            </div>
+
+            <!-- 将复选框放置在表单下方的独立容器中，以便居中显示 -->
             <div class="checkbox-container">
                 <label>
                     <input type="checkbox" id="publicDomainCheckbox">
@@ -45,11 +47,11 @@
         text-align: center;
     }
 
-    form {
+    /* 搜索栏保持水平布局 */
+    .search-bar {
         display: flex;
-        flex-direction: column;
-        align-items: center; /* 将表单内容居中 */
-        margin-bottom: 20px;
+        justify-content: center;
+        margin-bottom: 10px;
     }
 
     input[type="text"] {
@@ -58,7 +60,7 @@
         font-size: 16px;
         border: 1px solid #ddd;
         border-radius: 4px;
-        margin-bottom: 10px; /* 添加底部外边距 */
+        margin-right: 10px;
     }
 
     button {
@@ -69,7 +71,6 @@
         background-color: #007bff;
         color: white;
         cursor: pointer;
-        margin-bottom: 10px; /* 添加底部外边距 */
     }
 
     button:hover {
@@ -80,7 +81,7 @@
     .checkbox-container {
         display: flex;
         justify-content: center; /* 居中对齐复选框 */
-        margin-top: 10px; /* 添加顶部间距 */
+        margin-top: 10px;
     }
 
     #results {
@@ -96,7 +97,7 @@
 
     /* 调整图片大小，使其更合适 */
     .artwork img {
-        max-width: 200px; /* 设置最大宽度为200px */
+        max-width: 200px;
         height: auto;
         border: 1px solid #ddd;
         margin-bottom: 10px;
