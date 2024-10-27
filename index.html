@@ -9,7 +9,8 @@
     <div class="container">
         <h1>Search for Artworks</h1>
         <form id="searchForm">
-            <input type="text" id="searchQuery" placeholder="Enter keyword...">
+            <!-- 添加 autofocus 属性 -->
+            <input type="text" id="searchQuery" placeholder="Enter keyword..." autofocus>
             <button type="submit">Search</button>
         </form>
         <div id="results"></div>
@@ -77,8 +78,9 @@
         text-align: center;
     }
 
+    /* 调整图片大小，使其更合适 */
     .artwork img {
-        max-width: 100%;
+        max-width: 200px; /* 设置最大宽度为200px */
         height: auto;
         border: 1px solid #ddd;
         margin-bottom: 10px;
