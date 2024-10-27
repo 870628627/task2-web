@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // 如果选中公共领域复选框，添加相应过滤参数
         if (isPublicDomainOnly) {
-            apiUrl += '&fields=is_public_domain&is_public_domain=true';
+            apiUrl = `https://api.artic.edu/api/v1/artworks/search?query[term][is_public_domain]=true&q=${encodeURIComponent(query)}&limit=3`;
         }
 
         // 发起API请求
